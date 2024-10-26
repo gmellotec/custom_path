@@ -2,9 +2,9 @@ import os
 
 class CustomPath:
     def __init__(self, directories):
-        current = os.path.dirname(os.path.abspath(__file__))
-        self.root = os.path.dirname(current)
-
+        # current = os.path.dirname(os.path.abspath(__file__))
+        # self.root = os.path.dirname(current)
+        self.root = self._get_project_root()
         self.directories = directories
         self.paths = {}
 
@@ -14,6 +14,11 @@ class CustomPath:
             setattr(self, f"_{dir_key}", dir_path)
             self.paths[dir_key] = dir_path
             self._create_directory(dir_path)
+            
+    def _get_project_root(self):
+        """Obtém a raiz do projeto de forma robusta."""
+        # Usar o diretório atual como raiz do projeto
+        return os.getcwd()
 
     def _create_directory(self, path):
         """Cria o diretório se ele não existir."""
