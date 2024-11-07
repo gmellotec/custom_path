@@ -1,4 +1,5 @@
 import os
+import shutil
 
 class CustomPath:
     def __init__(self, directories):
@@ -40,8 +41,10 @@ class CustomPath:
         return path_method
 
     def clear_dirs(self, directory_path):
-        # Deletar todos os arquivos dentro de um diretório especificado.
+        # Deletar todos os arquivos e pastas dentro de um diretório especificado.
         for filename in os.listdir(directory_path):
             file_path = os.path.join(directory_path, filename)
             if os.path.isfile(file_path) or os.path.islink(file_path):
-                os.remove(file_path)
+                os.remove(file_path)  # Deletar arquivo ou link.
+            elif os.path.isdir(file_path):
+                shutil.rmtree(file_path)  # Deletar diretório e todo o seu conteúdo.
